@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My first page</title>
+    <style>
+        body {
+            background: #181818;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+
+        .slot {
+            font-size: 50px;
+            margin: 25px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 12px 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hetelmäpeli</h1>
+
+    <h2>Slot Machine</h2>
+    <p>Credits: <span id="credits">100</span></p>
+
+    <div class="slot" id="result">🍒 🍋 🍒</div>
+
+    <button onclick="spin()">Spin (1 credit>(s))</button>
+    <p id="message">Good luck!</p>
+
+    <script>
+        let credits = 100;
+
+        function spin() {
+            if (credits < 1) {
+                document.getElementById("message").textContent =
+                    "You're out of credits!";
+                return;
+            }
+
+            credits -= 1;
+
+            const symbols = ["🍒", "🍋", "🍊", "💎", "7️⃣"];
+            const result = Array.from(
+                { length: 3 },
+                () => symbols[Math.floor(Math.random() * symbols.length)]
+            );
+
+            let winnings = 0;
+
+            if (result.every(s => s === "7️⃣")) {
+                winnings = 100;
+            } else if (result.every(s => s === "💎")) {
+                winnings = 50;
+            } else if (result.every(s => s === result[0])) {
+                winnings = 20;
+            }
+
+            credits += winnings;
+
+            document.getElementById("credits").textContent = credits;
+            document.getElementById("result").textContent =
+                result.join(" ");
+            document.getElementById("message").textContent =
+                winnings > 0
+                    ? `You won ${winnings} credits!`
+                    : "You lost 1 credit(s)!";
+        }
+    </script>
+</body>
+</html>
