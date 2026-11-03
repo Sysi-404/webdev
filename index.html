@@ -3,77 +3,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My first page</title>
-    <style>
-        body {
-            background: #181818;
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            padding-top: 50px;
-        }
-
-        .slot {
-            font-size: 50px;
-            margin: 25px;
-        }
-
-        button {
-            font-size: 20px;
-            padding: 12px 30px;
-            cursor: pointer;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leipomo-kahvila Voisilmä</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hetelmäpeli</h1>
 
-    <h2>Slot Machine</h2>
-    <p>Credits: <span id="credits">100</span></p>
+    <header>
+    <h1>
+        <img src="leipomo.png" alt="Voisilmä logo">
+        Voisilmä
+    </h1>
 
-    <div class="slot" id="result">🍒 🍋 🍒</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    </header>
 
-    <button onclick="spin()">Spin (1 credit>(s))</button>
-    <p id="message">Good luck!</p>
+    <main>
+        <h2>Leipomo-kahvila Voisilmä</h2>
+        <p>Hei! Leipomo-kahvila Voisilmä sijaitsee Seinäjoen keskustassa. Leivomme kaiken täällä joka aamu.</p>
+        <p>Oheisilla sivuilla linkkien takana on lisätietoa meidän allergeeneistamme ja menustamme</p>
+    </main>
 
-    <script>
-        let credits = 100;
+    <footer>
+        <p>&copy; 2026 Leipomo Voisilmä</p>
+    </footer>
 
-        function spin() {
-            if (credits < 1) {
-                document.getElementById("message").textContent =
-                    "You're out of credits!";
-                return;
-            }
-
-            credits -= 1;
-
-            const symbols = ["🍒", "🍋", "🍊", "💎", "7️⃣"];
-            const result = Array.from(
-                { length: 3 },
-                () => symbols[Math.floor(Math.random() * symbols.length)]
-            );
-
-            let winnings = 0;
-
-            if (result.every(s => s === "7️⃣")) {
-                winnings = 100;
-            } else if (result.every(s => s === "💎")) {
-                winnings = 50;
-            } else if (result.every(s => s === result[0])) {
-                winnings = 20;
-            }
-
-            credits += winnings;
-
-            document.getElementById("credits").textContent = credits;
-            document.getElementById("result").textContent =
-                result.join(" ");
-            document.getElementById("message").textContent =
-                winnings > 0
-                    ? `You won ${winnings} credits!`
-                    : "You lost 1 credit(s)!";
-        }
-    </script>
 </body>
 </html>
