@@ -97,3 +97,23 @@ footer {
         padding: 25px;
     }
 }
+
+
+/* CAKE ORDER BUTTON */
+
+.order-button {
+    display: inline-block;
+    background-color: #b23a48;
+    color: white;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+
+.order-button:hover {
+    background-color: #8f2938;
+}
