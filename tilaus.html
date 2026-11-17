@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kakun tilaus - Voisilmä</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>
+        <img src="leipomo.png" alt="Voisilmä logo">
+        Voisilmä
+    </h1>
+
+    <nav>
+        <a href="index.html">Etusivu</a>
+        <a href="about.html">Meistä</a>
+        <a href="services.html">Tarjonta</a>
+        <a href="contact.html">Yhteystiedot</a>
+    </nav>
+</header>
+
+<main>
+
+    <h2>Kakun tilaus juhliin</h2>
+
+    <p>
+        Suunnitteletko juhlia? Tilaa herkullinen kakku
+        Voisilmästä! Täytä alla oleva tilauspyyntölomake.
+        Vahvistamme jokaisen tilauksen puhelimitse.
+    </p>
+
+    <!-- AUKIOLOAJAT -->
+
+    <section>
+        <h3>Aukioloajat</h3>
+
+        <ul>
+            <li>Maanantai - Perjantai: Kun hasan herää-16:30</li>
+            <li>Lauantai: 11-12:30</li>
+            <li>Sunnuntai: 13</li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <!-- TILAUSLOMAKE -->
+
+    <h3>Tilauspyyntö</h3>
+
+    <form id="tilauslomake">
+
+        <h3>Asiakastiedot</h3>
+
+        <label for="nimi">Koko nimi *</label>
+        <input type="text" id="nimi" name="nimi"
+               required minlength="2">
+
+        <label for="email">Sähköposti *</label>
+        <input type="email" id="email" name="email"
+               required>
+
+        <label for="puhelin">Puhelinnumero *</label>
+        <input type="tel" id="puhelin" name="puhelin"
+               required pattern="[0-9+() -]{6,20}"
+               title="Anna kelvollinen puhelinnumero">
+
+        <h3>Kakun tiedot</h3>
+
+        <label for="kakku">Kakun tyyppi *</label>
+        <select id="kakku" name="kakku" required>
+            <option value="">Valitse kakku</option>
+            <option value="mansikka">Mansikkakakku</option>
+            <option value="suklaa">Suklaakakku</option>
+            <option value="juusto">Juustokakku</option>
+            <option value="marenki">Marenkikakku</option>
+            <option value="muu">Muu / erikoiskakku</option>
+        </select>
+
+        <label for="koko">Kakun koko *</label>
+        <select id="koko" name="koko" required>
+            <option value="">Valitse koko</option>
+            <option value="pieni">4-6 henkilöä</option>
+            <option value="keskikokoinen">8-12 henkilöä</option>
+            <option value="suuri">15-20 henkilöä</option>
+            <option value="erikois">Yli 20 henkilöä</option>
+        </select>
+
+        <label for="juhla">Juhlan päivämäärä *</label>
+        <input type="date" id="juhla" name="juhla" required>
+
+        <label for="nouto">Toivottu noutopäivä *</label>
+        <input type="date" id="nouto" name="nouto" required>
+
+        <label for="allergiat">Allergiat ja erityisruokavaliot</label>
+        <textarea id="allergiat" name="allergiat"
+                  rows="3"
+                  placeholder="Esimerkiksi laktoositon, gluteeniton..."></textarea>
+
+        <label for="koristelu">Koristelu ja muut toiveet</label>
+        <textarea id="koristelu" name="koristelu"
+                  rows="4"
+                  placeholder="Kakun värit, tekstit, koristelu..."></textarea>
+
+        <p>* Pakolliset kentät</p>
+
+        <button type="submit">Lähetä tilauspyyntö</button>
+
+    </form>
+
+    <!-- ONNISTUMISVIESTI -->
+
+    <div id="onnistuminen" hidden>
+        <h3>Tilauspyyntö valmis!</h3>
+
+        <p>
+            Lomake on täytetty onnistuneesti.
+            Tilauspyyntösi on valmis.
+        </p>
+
+        <p>
+            Huomioithan, että tämä on tällä hetkellä
+            lomakkeen esikatselu. Tilauspyyntöä ei ole
+            vielä lähetetty meille.
+        </p>
+
+        <p>
+            Vahvistamme jokaisen tilauksen puhelimitse.
+            Olemme sinuun yhteydessä antamaasi
+            puhelinnumeroon.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Leipomo-kahvila Voisilmä</p>
+</footer>
+
+
+<script>
+
+// Estetään menneiden päivien valitseminen
+
+const today = new Date().toISOString().split("T")[0];
+
+document.getElementById("juhla").min = today;
+document.getElementById("nouto").min = today;
+
+
+// Lomakkeen käsittely
+
+document.getElementById("tilauslomake")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    // Tarkistetaan, että kaikki pakolliset tiedot ovat oikein
+    if (!this.reportValidity()) {
+        return;
+    }
+
+    // Tarkistetaan, ettei noutopäivä ole ennen juhlapäivää
+    const juhla = document.getElementById("juhla").value;
+    const nouto = document.getElementById("nouto").value;
+
+    if (nouto > juhla) {
+        alert("Noutopäivä ei voi olla juhlapäivän jälkeen.");
+        return;
+    }
+
+    // Näytetään onnistumisviesti
+    this.hidden = true;
+
+    document.getElementById("onnistuminen").hidden = false;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+</script>
+
+</body>
+</html>
